@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+  />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#8a05be" />
+  <title>NuApp</title>
+  <style>
+    :root{
+      --purple:#8a05be;
+      --bg:#f4f4f5;
+      --card:#e9e9ed;
+      --text:#111;
+      --muted:#6c6c72;
+      --white:#fff;
+      --shadow:0 8px 25px rgba(0,0,0,.10);
+      --radius:18px;
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+
+    html,body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100%;
+    }
+
+    body{
+      overscroll-behavior:none;
+    }
+
+    .app{
+      min-height:100vh;
+      padding-bottom:120px;
+      background:var(--bg);
+    }
+
+    .header{
+      background:var(--purple);
+      padding:16px 20px 22px;
+      color:#fff;
+      border-bottom-left-radius:0;
+      border-bottom-right-radius:0;
+    }
+
+    .top-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .avatar{
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      background:rgba(255,255,255,.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      font-size:22px;
+      user-select:none;
+      cursor:pointer;
+      position:relative;
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .top-icons{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .icon-btn{
+      border:none;
+      background:transparent;
+      color:#fff;
+      font-size:20px;
+      cursor:pointer;
+      padding:4px;
+      line-height:1;
+    }
+
+    .hello{
+      margin-top:38px;
+      font-size:22px;
+      font-weight:700;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .section{
+      padding:18px 20px 14px;
+      border-top:1px solid transparent;
+    }
+
+    .section-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+    .section-title,
+    .credit-title,
+    .info-title,
+    .discover-title{
+      font-size:20px;
+      font-weight:700;
+      color:var(--text);
+    }
+
+    .arrow{
+      color:#8b8b92;
+      font-size:20px;
+    }
+
+    .value-main{
+      margin-top:20px;
+      font-size:30px;
+      font-weight:800;
+      letter-spacing:-.4px;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .actions{
+      display:flex;
+      gap:18px;
+      overflow-x:auto;
+      padding:28px 0 18px;
+      scrollbar-width:none;
+    }
+
+    .actions::-webkit-scrollbar,
+    .cards-row::-webkit-scrollbar,
+    .discover-row::-webkit-scrollbar{
+      display:none;
+    }
+
+    .action{
+      flex:0 0 82px;
+      text-align:center;
+      user-select:none;
+    }
+
+    .action-circle{
+      width:66px;
+      height:66px;
+      border-radius:50%;
+      background:var(--card);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 10px;
+      font-size:23px;
+    }
+
+    .action-label{
+      font-size:14px;
+      line-height:18px;
+    }
+
+    .big-card{
+      height:58px;
+      border-radius:15px;
+      background:var(--card);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:0 16px;
+      font-size:16px;
+      font-weight:600;
+      user-select:none;
+    }
+
+    .cards-row{
+      display:flex;
+      gap:12px;
+      overflow-x:auto;
+      margin-top:16px;
+    }
+
+    .loan-card,
+    .mini-card,
+    .discover-card{
+      background:var(--card);
+      border-radius:16px;
+    }
+
+    .loan-card{
+      min-width:285px;
+      padding:16px;
+      font-size:15px;
+      line-height:23px;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .mini-card{
+      min-width:190px;
+      padding:16px;
+      font-size:15px;
+      line-height:23px;
+    }
+
+    .purple{
+      color:var(--purple);
+    }
+
+    .bold{
+      font-weight:700;
+    }
+
+    .divider{
+      border-top:1px solid #dddddf;
+      margin:0 20px;
+    }
+
+    .credit-section,
+    .info-section,
+    .discover-section{
+      padding:18px 20px;
+    }
+
+    .muted-label{
+      margin-top:16px;
+      color:var(--muted);
+      font-size:16px;
+      font-weight:600;
+    }
+
+    .invoice-value{
+      margin-top:12px;
+      font-size:30px;
+      font-weight:800;
+      letter-spacing:-.4px;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .limit-text{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:15px;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .info-text{
+      margin-top:10px;
+      font-size:15px;
+      color:#5f5f64;
+      line-height:22px;
+    }
+
+    .payment-text{
+      margin-top:10px;
+      font-size:16px;
+      font-weight:500;
+    }
+
+    .discover-section{
+      padding-bottom:8px;
+    }
+
+    .discover-title{
+      margin-bottom:14px;
+    }
+
+    .discover-row{
+      display:flex;
+      gap:14px;
+      overflow-x:auto;
+    }
+
+    .discover-card{
+      width:270px;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+
+    .discover-image{
+      width:100%;
+      height:140px;
+      object-fit:cover;
+      display:block;
+      background:#d8d8dc;
+    }
+
+    .discover-body{
+      padding:16px;
+    }
+
+    .discover-card-title{
+      font-size:15px;
+      font-weight:700;
+    }
+
+    .discover-card-text{
+      margin-top:8px;
+      color:#666;
+      font-size:14px;
+      line-height:22px;
+      min-height:64px;
+    }
+
+    .discover-btn{
+      margin-top:14px;
+      border:none;
+      background:var(--purple);
+      color:#fff;
+      border-radius:24px;
+      padding:12px 24px;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .rate{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      color:var(--purple);
+      padding:24px 20px;
+      font-size:16px;
+      font-weight:500;
+      user-select:none;
+    }
+
+    .bottom-wrap{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:max(16px, env(safe-area-inset-bottom));
+      display:flex;
+      justify-content:center;
+      pointer-events:none;
+      z-index:20;
+    }
+
+    .bottom-bar{
+      width:min(72%, 340px);
+      height:68px;
+      background:#fff;
+      border-radius:34px;
+      display:flex;
+      align-items:center;
+      justify-content:space-around;
+      box-shadow:var(--shadow);
+      pointer-events:auto;
+    }
+
+    .bottom-item{
+      width:52px;
+      height:52px;
+      border-radius:26px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      font-size:23px;
+      color:#555;
+      user-select:none;
+      cursor:pointer;
+    }
+
+    .bottom-item.active{
+      background:#f1e4f8;
+      color:var(--purple);
+    }
+
+    .dot{
+      position:absolute;
+      top:11px;
+      right:11px;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--purple);
+    }
+
+    .banner{
+      position:fixed;
+      top:14px;
+      left:16px;
+      right:16px;
+      z-index:30;
+      background:#fff;
+      border-radius:16px;
+      padding:14px;
+      box-shadow:var(--shadow);
+      transform:translateY(-120px);
+      opacity:0;
+      pointer-events:none;
+      transition:.28s ease;
+    }
+
+    .banner.show{
+      transform:translateY(0);
+      opacity:1;
+    }
+
+    .banner-title{
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .banner-text{
+      margin-top:4px;
+      font-size:14px;
+      color:#444;
+    }
+
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.35);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:40;
+    }
+
+    .modal-backdrop.show{
+      display:flex;
+    }
+
+    .modal{
+      width:min(100%, 420px);
+      background:#fff;
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .modal-title{
+      font-size:18px;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:#f3f3f5;
+      border-radius:12px;
+      padding:14px;
+      font-size:15px;
+      color:#111;
+      margin-bottom:10px;
+    }
+
+    .hint{
+      margin-top:2px;
+      font-size:13px;
+      color:#666;
+      line-height:18px;
+    }
+
+    .modal-actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      border:none;
+      border-radius:12px;
+      padding:11px 16px;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .btn.gray{
+      background:#ececef;
+      color:#111;
+    }
+
+    .btn.purple{
+      background:var(--purple);
+      color:#fff;
+    }
+
+    .btn.light-purple{
+      background:#b14ad8;
+      color:#fff;
+    }
+
+    .active-text{
+      margin-top:14px;
+      font-size:14px;
+      font-weight:700;
+      color:var(--purple);
+    }
+
+    .hidden{
+      letter-spacing:2px;
+    }
+
+    @media (max-width:420px){
+      .bottom-bar{
+        width:82%;
+      }
+      .value-main,
+      .invoice-value{
+        font-size:28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner" id="pixBanner">
+    <div class="banner-title">Pix recebido</div>
+    <div class="banner-text" id="pixBannerText">Pagamento recebido</div>
+  </div>
+
+  <div class="app">
+    <div class="header">
+      <div class="top-row">
+        <div class="avatar longpress" id="avatarPress" data-field="photo">
+          <img id="avatarImage" alt="" style="display:none;">
+          <span id="avatarFallback">👤</span>
+        </div>
+
+        <div class="top-icons">
+          <button class="icon-btn" id="toggleEye" aria-label="Mostrar ou ocultar valores">👁️</button>
+          <button class="icon-btn" aria-label="Ajuda">❔</button>
+          <button class="icon-btn" aria-label="Mensagens">✉️</button>
+        </div>
+      </div>
+
+      <div class="hello longpress" id="namePress" data-field="name">Olá, Gabriel</div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Conta</div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="value-main longpress" id="accountPress" data-field="account">R$ 851,65</div>
+
+      <div class="actions">
+        <div class="action">
+          <div class="action-circle">✦</div>
+          <div class="action-label">Pix</div>
+        </div>
+        <div class="action">
+          <div class="action-circle">⌁</div>
+          <div class="action-label">Pagar</div>
+        </div>
+        <div class="action">
+          <div class="action-circle">↗</div>
+          <div class="action-label">Transferir</div>
+        </div>
+        <div class="action">
+          <div class="action-circle">↙</div>
+          <div class="action-label">Depositar</div>
+        </div>
+        <div class="action">
+          <div class="action-circle">💰</div>
+          <div class="action-label">Pegar<br>emprestado</div>
+        </div>
+      </div>
+
+      <div class="big-card">💳 <span>Meus cartões</span></div>
+
+      <div class="cards-row">
+        <div class="loan-card longpress" id="loanPress" data-field="loan">
+          Você tem <span class="bold" id="loanStrong">R$ 25.000,00</span>
+          disponíveis para <span class="purple">empréstimo.</span>
+        </div>
+
+        <div class="mini-card">
+          Conquiste planos e conheça as opções
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="credit-section">
+      <div class="section-header">
+        <div class="credit-title">Cartão de crédito</div>
+        <div class="arrow">›</div>
+      </div>
+
+      <div class="muted-label">Fatura atual</div>
+      <div class="invoice-value longpress" id="invoicePress" data-field="invoice">R$ 1.686,03</div>
+      <div class="limit-text longpress" id="limitPress" data-field="limit">Limite disponível de R$ 6.663,97</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="info-title">Empréstimo</div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="info-text">
+        Tudo certo com sua antecipação do saque-aniversário FGTS! O desconto da próxima parcela será em 7 de 2026.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="info-title">Próximo pagamento</div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="payment-text">Quarta-feira, 15 Abr</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="discover-section">
+      <div class="discover-title">Descubra mais</div>
+
+      <div class="discover-row">
+        <div class="discover-card">
+          <img class="discover-image" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="">
+          <div class="discover-body">
+            <div class="discover-card-title">Termos de uso</div>
+            <div class="discover-card-text">Explicamos o que diz esse documento do NuApp</div>
+            <button class="discover-btn">Conhecer</button>
+          </div>
+        </div>
+
+        <div class="discover-card">
+          <img class="discover-image" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop" alt="">
+          <div class="discover-body">
+            <div class="discover-card-title">Indique o NuApp</div>
+            <div class="discover-card-text">Compartilhe como é estar no controle</div>
+            <button class="discover-btn">Conhecer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rate">♡ Avalie esta tela</div>
+  </div>
+
+  <div class="bottom-wrap">
+    <div class="bottom-bar">
+      <div class="bottom-item active">⇅</div>
+      <div class="bottom-item">$</div>
+      <div class="bottom-item">🎁</div>
+      <div class="bottom-item longpress" id="pixConfigPress" data-field="pixconfig">
+        📱
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="editModalWrap">
+    <div class="modal">
+      <div class="modal-title" id="editModalTitle">Editar</div>
+      <input class="input" id="editInput" />
+      <div class="hint" id="editHint"></div>
+      <div class="modal-actions">
+        <button class="btn gray" id="editCancel">Cancelar</button>
+        <button class="btn purple" id="editSave">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="pixModalWrap">
+    <div class="modal">
+      <div class="modal-title">Automação de Pix</div>
+      <input class="input" id="pixNameInput" placeholder="Nome de quem vai enviar" />
+      <input class="input" id="pixValueInput" placeholder="Valor em centavos. Ex: 1500 = 15,00" inputmode="numeric" />
+      <input class="input" id="pixSecondsInput" placeholder="Intervalo em segundos" inputmode="numeric" />
+      <div class="hint">
+        Exemplo: 5000 = R$ 50,00. Intervalo 10 = cai um Pix a cada 10 segundos.
+      </div>
+      <div class="modal-actions">
+        <button class="btn gray" id="pixClose">Fechar</button>
+        <button class="btn light-purple" id="pixStop">Parar</button>
+        <button class="btn purple" id="pixStart">Ativar</button>
+      </div>
+      <div class="active-text" id="pixActiveText" style="display:none;">Automação ativa</div>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      showValues: true,
+      userName: 'Gabriel',
+      accountValue: '851,65',
+      invoiceValue: '1.686,03',
+      limitValue: '6.663,97',
+      loanValue: '25.000,00',
+      photoUrl: '',
+      pixSenderName: 'Lucas',
+      pixAmountInput: '1500',
+      pixIntervalInput: '10',
+      pixTimer: null,
+      currentEditField: null
+    };
+
+    const els = {
+      avatarImage: document.getElementById('avatarImage'),
+      avatarFallback: document.getElementById('avatarFallback'),
+      namePress: document.getElementById('namePress'),
+      accountPress: document.getElementById('accountPress'),
+      invoicePress: document.getElementById('invoicePress'),
+      limitPress: document.getElementById('limitPress'),
+      loanStrong: document.getElementById('loanStrong'),
+      pixBanner: document.getElementById('pixBanner'),
+      pixBannerText: document.getElementById('pixBannerText'),
+      toggleEye: document.getElementById('toggleEye'),
+
+      editModalWrap: document.getElementById('editModalWrap'),
+      editModalTitle: document.getElementById('editModalTitle'),
+      editInput: document.getElementById('editInput'),
+      editHint: document.getElementById('editHint'),
+      editCancel: document.getElementById('editCancel'),
+      editSave: document.getElementById('editSave'),
+
+      pixModalWrap: document.getElementById('pixModalWrap'),
+      pixNameInput: document.getElementById('pixNameInput'),
+      pixValueInput: document.getElementById('pixValueInput'),
+      pixSecondsInput: document.getElementById('pixSecondsInput'),
+      pixClose: document.getElementById('pixClose'),
+      pixStop: document.getElementById('pixStop'),
+      pixStart: document.getElementById('pixStart'),
+      pixActiveText: document.getElementById('pixActiveText')
+    };
+
+    function formatCurrencyInput(value) {
+      const digits = String(value || '').replace(/\D/g, '');
+      if (!digits) return '0,00';
+      const numberValue = Number(digits) / 100;
+      return numberValue.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function currencyStringToNumber(value) {
+      const normalized = String(value || '').replace(/\./g, '').replace(',', '.');
+      return Number(normalized) || 0;
+    }
+
+    function numberToCurrencyString(value) {
+      return value.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function getHidden() {
+      return '<span class="hidden">••••••</span>';
+    }
+
+    function render() {
+      els.namePress.textContent = `Olá, ${state.userName}`;
+
+      if (state.photoUrl) {
+        els.avatarImage.src = state.photoUrl;
+        els.avatarImage.style.display = 'block';
+        els.avatarFallback.style.display = 'none';
+      } else {
+        els.avatarImage.style.display = 'none';
+        els.avatarFallback.style.display = 'block';
+      }
+
+      els.accountPress.innerHTML = state.showValues ? `R$ ${state.accountValue}` : getHidden();
+      els.invoicePress.innerHTML = state.showValues ? `R$ ${state.invoiceValue}` : getHidden();
+      els.limitPress.innerHTML = state.showValues
+        ? `Limite disponível de R$ ${state.limitValue}`
+        : `Limite disponível de ${getHidden()}`;
+
+      els.loanStrong.innerHTML = state.showValues ? `R$ ${state.loanValue}` : getHidden();
+
+      els.toggleEye.textContent = state.showValues ? '👁️' : '🙈';
+
+      els.pixNameInput.value = state.pixSenderName;
+      els.pixValueInput.value = state.pixAmountInput;
+      els.pixSecondsInput.value = state.pixIntervalInput;
+      els.pixActiveText.style.display = state.pixTimer ? 'block' : 'none';
+    }
+
+    function openEditModal(field) {
+      state.currentEditField = field;
+
+      const config = {
+        name: {
+          title: 'Alterar nome',
+          value: state.userName,
+          hint: '',
+          inputMode: 'text',
+          placeholder: 'Digite o nome'
+        },
+        account: {
+          title: 'Alterar saldo em conta',
+          value: state.accountValue,
+          hint: 'Exemplo: 244653 vira 2.446,53',
+          inputMode: 'numeric',
+          placeholder: 'Digite apenas números'
+        },
+        invoice: {
+          title: 'Alterar fatura',
+          value: state.invoiceValue,
+          hint: 'Exemplo: 244653 vira 2.446,53',
+          inputMode: 'numeric',
+          placeholder: 'Digite apenas números'
+        },
+        limit: {
+          title: 'Alterar limite disponível',
+          value: state.limitValue,
+          hint: 'Exemplo: 244653 vira 2.446,53',
+          inputMode: 'numeric',
+          placeholder: 'Digite apenas números'
+        },
+        loan: {
+          title: 'Alterar valor do empréstimo',
+          value: state.loanValue,
+          hint: 'Exemplo: 244653 vira 2.446,53',
+          inputMode: 'numeric',
+          placeholder: 'Digite apenas números'
+        },
+        photo: {
+          title: 'Alterar foto do perfil',
+          value: state.photoUrl,
+          hint: 'Cole a URL de uma imagem',
+          inputMode: 'url',
+          placeholder: 'Cole a URL da sua foto'
+        }
+      }[field];
+
+      els.editModalTitle.textContent = config.title;
+      els.editInput.value = config.value;
+      els.editInput.placeholder = config.placeholder;
+      els.editInput.setAttribute('inputmode', config.inputMode);
+      els.editHint.textContent = config.hint;
+      els.editModalWrap.classList.add('show');
+
+      setTimeout(() => els.editInput.focus(), 50);
+    }
+
+    function closeEditModal() {
+      els.editModalWrap.classList.remove('show');
+      state.currentEditField = null;
+    }
+
+    function saveEditModal() {
+      const field = state.currentEditField;
+      const raw = els.editInput.value.trim();
+
+      if (!field) return;
+
+      if (field === 'name') {
+        state.userName = raw || 'Gabriel';
+      } else if (field === 'photo') {
+        state.photoUrl = raw;
+      } else {
+        const formatted = formatCurrencyInput(raw);
+        if (field === 'account') state.accountValue = formatted;
+        if (field === 'invoice') state.invoiceValue = formatted;
+        if (field === 'limit') state.limitValue = formatted;
+        if (field === 'loan') state.loanValue = formatted;
+      }
+
+      closeEditModal();
+      render();
+    }
+
+    function openPixModal() {
+      els.pixModalWrap.classList.add('show');
+      render();
+    }
+
+    function closePixModal() {
+      els.pixModalWrap.classList.remove('show');
+    }
+
+    function showPixBanner(name, value) {
+      els.pixBannerText.textContent = `${name} enviou R$ ${value}`;
+      els.pixBanner.classList.add('show');
+
+      clearTimeout(showPixBanner._timer);
+      showPixBanner._timer = setTimeout(() => {
+        els.pixBanner.classList.remove('show');
+      }, 2500);
+    }
+
+    function addToBalance(formattedPixValue) {
+      const current = currencyStringToNumber(state.accountValue);
+      const incoming = currencyStringToNumber(formattedPixValue);
+      state.accountValue = numberToCurrencyString(current + incoming);
+      render();
+    }
+
+    function startPixAutomation() {
+      state.pixSenderName = els.pixNameInput.value.trim() || 'Pagamento recebido';
+      state.pixAmountInput = els.pixValueInput.value.trim() || '0';
+      state.pixIntervalInput = els.pixSecondsInput.value.trim() || '10';
+
+      stopPixAutomation(false);
+
+      const seconds = Math.max(1, Number(state.pixIntervalInput) || 1);
+
+      state.pixTimer = setInterval(() => {
+        const formatted = formatCurrencyInput(state.pixAmountInput);
+        addToBalance(formatted);
+        showPixBanner(state.pixSenderName, formatted);
+      }, seconds * 1000);
+
+      render();
+      closePixModal();
+    }
+
+    function stopPixAutomation(close = true) {
+      if (state.pixTimer) {
+        clearInterval(state.pixTimer);
+        state.pixTimer = null;
+      }
+      render();
+      if (close) closePixModal();
+    }
+
+    function attachLongPress(el, callback, ms = 3000) {
+      let timer = null;
+      let triggered = false;
+
+      const start = (e) => {
+        triggered = false;
+        timer = setTimeout(() => {
+          triggered = true;
+          callback(e);
+        }, ms);
+      };
+
+      const cancel = () => {
+        clearTimeout(timer);
+      };
+
+      el.addEventListener('touchstart', start, { passive: true });
+      el.addEventListener('touchend', cancel);
+      el.addEventListener('touchmove', cancel);
+      el.addEventListener('touchcancel', cancel);
+
+      el.addEventListener('mousedown', start);
+      el.addEventListener('mouseup', cancel);
+      el.addEventListener('mouseleave', cancel);
+
+      el.addEventListener('contextmenu', (e) => e.preventDefault());
+      el.addEventListener('click', (e) => {
+        if (triggered) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+    }
+
+    document.querySelectorAll('.longpress').forEach((el) => {
+      const field = el.dataset.field;
+
+      if (field === 'pixconfig') {
+        attachLongPress(el, openPixModal);
+      } else {
+        attachLongPress(el, () => openEditModal(field));
+      }
+    });
+
+    els.toggleEye.addEventListener('click', () => {
+      state.showValues = !state.showValues;
+      render();
+    });
+
+    els.editCancel.addEventListener('click', closeEditModal);
+    els.editSave.addEventListener('click', saveEditModal);
+
+    els.editModalWrap.addEventListener('click', (e) => {
+      if (e.target === els.editModalWrap) closeEditModal();
+    });
+
+    els.pixClose.addEventListener('click', closePixModal);
+    els.pixStart.addEventListener('click', startPixAutomation);
+    els.pixStop.addEventListener('click', () => stopPixAutomation(true));
+
+    els.pixModalWrap.addEventListener('click', (e) => {
+      if (e.target === els.pixModalWrap) closePixModal();
+    });
+
+    els.editInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') saveEditModal();
+    });
+
+    render();
+  </script>
+</body>
+</html>
