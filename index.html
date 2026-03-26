@@ -49,10 +49,8 @@
 
     .header{
       background:var(--purple);
-      padding:16px 20px 22px;
+      padding:28px 20px 22px;
       color:#fff;
-      border-bottom-left-radius:0;
-      border-bottom-right-radius:0;
     }
 
     .top-row{
@@ -172,6 +170,14 @@
       justify-content:center;
       margin:0 auto 10px;
       font-size:23px;
+      overflow:hidden;
+    }
+
+    .action-circle img{
+      width:28px;
+      height:28px;
+      object-fit:contain;
+      display:block;
     }
 
     .action-label{
@@ -378,15 +384,25 @@
       align-items:center;
       justify-content:center;
       position:relative;
-      font-size:23px;
-      color:#555;
       user-select:none;
       cursor:pointer;
+      color:#555;
     }
 
     .bottom-item.active{
       background:#f1e4f8;
       color:var(--purple);
+    }
+
+    .bottom-item svg{
+      width:24px;
+      height:24px;
+      display:block;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
     }
 
     .dot{
@@ -542,7 +558,7 @@
   <div class="app">
     <div class="header">
       <div class="top-row">
-        <div class="avatar longpress" id="avatarPress" data-field="photo">
+        <div class="avatar dbl-edit" id="avatarPress" data-field="photo">
           <img id="avatarImage" alt="" style="display:none;">
           <span id="avatarFallback">👤</span>
         </div>
@@ -554,7 +570,7 @@
         </div>
       </div>
 
-      <div class="hello longpress" id="namePress" data-field="name">Olá, Gabriel</div>
+      <div class="hello dbl-edit" id="namePress" data-field="name">Olá, Gabriel</div>
     </div>
 
     <div class="section">
@@ -563,17 +579,23 @@
         <div class="arrow">›</div>
       </div>
 
-      <div class="value-main longpress" id="accountPress" data-field="account">R$ 851,65</div>
+      <div class="value-main dbl-edit" id="accountPress" data-field="account">R$ 851,65</div>
 
       <div class="actions">
         <div class="action">
-          <div class="action-circle">✦</div>
+          <div class="action-circle">
+            <img src="https://www.bing.com/th/id/OIP.0Tcjf6Qat46O5n9CdmBYJQHaHa?w=194&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2" alt="Pix">
+          </div>
           <div class="action-label">Pix</div>
         </div>
+
         <div class="action">
-          <div class="action-circle">⌁</div>
+          <div class="action-circle">
+            <img src="https://th.bing.com/th/id/OIP.7L1SpgC6-9QsN6CTYUhO6QHaE5?w=267&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Pagar">
+          </div>
           <div class="action-label">Pagar</div>
         </div>
+
         <div class="action">
           <div class="action-circle">↗</div>
           <div class="action-label">Transferir</div>
@@ -591,7 +613,7 @@
       <div class="big-card">💳 <span>Meus cartões</span></div>
 
       <div class="cards-row">
-        <div class="loan-card longpress" id="loanPress" data-field="loan">
+        <div class="loan-card dbl-edit" id="loanPress" data-field="loan">
           Você tem <span class="bold" id="loanStrong">R$ 25.000,00</span>
           disponíveis para <span class="purple">empréstimo.</span>
         </div>
@@ -611,8 +633,8 @@
       </div>
 
       <div class="muted-label">Fatura atual</div>
-      <div class="invoice-value longpress" id="invoicePress" data-field="invoice">R$ 1.686,03</div>
-      <div class="limit-text longpress" id="limitPress" data-field="limit">Limite disponível de R$ 6.663,97</div>
+      <div class="invoice-value dbl-edit" id="invoicePress" data-field="invoice">R$ 1.686,03</div>
+      <div class="limit-text dbl-edit" id="limitPress" data-field="limit">Limite disponível de R$ 6.663,97</div>
     </div>
 
     <div class="divider"></div>
@@ -668,11 +690,38 @@
 
   <div class="bottom-wrap">
     <div class="bottom-bar">
-      <div class="bottom-item active">⇅</div>
-      <div class="bottom-item">$</div>
-      <div class="bottom-item">🎁</div>
-      <div class="bottom-item longpress" id="pixConfigPress" data-field="pixconfig">
-        📱
+      <div class="bottom-item active">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 7l4-4 4 4"></path>
+          <path d="M12 3v14"></path>
+          <path d="M16 17l-4 4-4-4"></path>
+          <path d="M12 21V7"></path>
+        </svg>
+      </div>
+
+      <div class="bottom-item">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3v18"></path>
+          <path d="M17 7.5c0-2-2-3.5-5-3.5S7 5.2 7 7c0 5 10 2 10 7 0 1.8-2 3-5 3s-5-1.5-5-3.5"></path>
+        </svg>
+      </div>
+
+      <div class="bottom-item">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 12v8H4v-8"></path>
+          <path d="M2 7h20v5H2z"></path>
+          <path d="M12 20V7"></path>
+          <path d="M12 7h-2.5A2.5 2.5 0 1 1 12 4.5V7z"></path>
+          <path d="M12 7h2.5A2.5 2.5 0 1 0 12 4.5V7z"></path>
+        </svg>
+      </div>
+
+      <div class="bottom-item dbl-edit" id="pixConfigPress" data-field="pixconfig">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="7" y="2.5" width="10" height="19" rx="2.5"></rect>
+          <path d="M10 5.5h4"></path>
+          <path d="M11 18.5h2"></path>
+        </svg>
         <span class="dot"></span>
       </div>
     </div>
@@ -946,47 +995,33 @@
       if (close) closePixModal();
     }
 
-    function attachLongPress(el, callback, ms = 3000) {
-      let timer = null;
-      let triggered = false;
+    function attachDoubleClickEdit(el, callback) {
+      let lastTap = 0;
 
-      const start = (e) => {
-        triggered = false;
-        timer = setTimeout(() => {
-          triggered = true;
-          callback(e);
-        }, ms);
-      };
-
-      const cancel = () => {
-        clearTimeout(timer);
-      };
-
-      el.addEventListener('touchstart', start, { passive: true });
-      el.addEventListener('touchend', cancel);
-      el.addEventListener('touchmove', cancel);
-      el.addEventListener('touchcancel', cancel);
-
-      el.addEventListener('mousedown', start);
-      el.addEventListener('mouseup', cancel);
-      el.addEventListener('mouseleave', cancel);
-
-      el.addEventListener('contextmenu', (e) => e.preventDefault());
       el.addEventListener('click', (e) => {
-        if (triggered) {
-          e.preventDefault();
-          e.stopPropagation();
+        const now = Date.now();
+        if (now - lastTap < 350) {
+          callback(e);
         }
-      }, true);
+        lastTap = now;
+      });
+
+      el.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTap < 350) {
+          callback(e);
+        }
+        lastTap = now;
+      }, { passive: true });
     }
 
-    document.querySelectorAll('.longpress').forEach((el) => {
+    document.querySelectorAll('.dbl-edit').forEach((el) => {
       const field = el.dataset.field;
 
       if (field === 'pixconfig') {
-        attachLongPress(el, openPixModal);
+        attachDoubleClickEdit(el, openPixModal);
       } else {
-        attachLongPress(el, () => openEditModal(field));
+        attachDoubleClickEdit(el, () => openEditModal(field));
       }
     });
 
